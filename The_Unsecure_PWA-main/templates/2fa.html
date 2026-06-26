@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>{{ "Set up 2FA" if mode == "setup" else "Verify 2FA" }}</h1>
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<p>Scan the QR code with Google Authenticator or Microsoft Authenticator.</p>
+
+{% if qr_code_data_url %}
+<img src="{{ qr_code_data_url }}" alt="QR code for 2FA setup" />
+{% endif %}
+
+<form method="post" action="{{ '/2fa/setup' if mode == 'setup' else '/2fa/verify' }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="input__wrapper">
+        <input
+            type="text"
+            name="totp_token"
+            id="totp_token"
+            placeholder="6-digit code"
+            class="input__field"
+            maxlength="6"
+            pattern="\d{6}"
+            required
+        />
+    </div>
+    <div class="input__wrapper">
+        <button type="submit" class="btn">{{ "Enable 2FA" if mode == "setup" else "Verify" }}</button>
+    </div>
+</form>
+{% endblock %}
