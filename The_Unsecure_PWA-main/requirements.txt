@@ -9,3 +9,5 @@ bcrypt
 requests
 matplotlib
 rich
+pycryptodome
+Pillow
