@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
 <h1>Signup Form</h1>
-<form action="/signup.html" method="POST" class="box">
+<form method="post" action="/signup.html">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     <div class="input__wrapper">
         <input type="text" name="username" placeholder="Username" class="input__field">
     </div>            
